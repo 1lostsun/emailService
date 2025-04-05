@@ -50,7 +50,6 @@ public class KafkaConfig {
 		configProperties.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
 
 		return new DefaultKafkaConsumerFactory<>(configProperties);
-
 	}
 
 	@Bean

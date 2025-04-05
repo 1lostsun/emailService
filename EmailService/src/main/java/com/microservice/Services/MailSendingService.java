@@ -24,11 +24,45 @@ public class MailSendingService {
 		this.mailTemplateService = mailTemplateService;
 	}
 
-	public void sendMail(MailMessageDto mailMessageDto) throws MessagingException {
+	public void sendLoginMail(MailMessageDto mailMessageDto) throws MessagingException {
 		Map<String, Object> model = new HashMap<>();
 		model.put("username", mailMessageDto.getUsername());
 
-		String htmlContent = mailTemplateService.generateMailTemplate("email-template", model);
+		String htmlContent = mailTemplateService.generateMailTemplate("login-template", model);
+
+		MimeMessage mimeMessage = mailSender.createMimeMessage();
+		MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage);
+
+		mimeMessageHelper.setFrom(mail);
+		mimeMessageHelper.setTo(mailMessageDto.getTo());
+		mimeMessageHelper.setSubject(mailMessageDto.getSubject());
+		mimeMessageHelper.setText(htmlContent, true);
+
+		mailSender.send(mimeMessage);
+	}
+
+	public void sendLogoutMail(MailMessageDto mailMessageDto) throws MessagingException {
+		Map<String, Object> model = new HashMap<>();
+		model.put("username", mailMessageDto.getUsername());
+
+		String htmlContent = mailTemplateService.generateMailTemplate("logout-template", model);
+
+		MimeMessage mimeMessage = mailSender.createMimeMessage();
+		MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage);
+
+		mimeMessageHelper.setFrom(mail);
+		mimeMessageHelper.setTo(mailMessageDto.getTo());
+		mimeMessageHelper.setSubject(mailMessageDto.getSubject());
+		mimeMessageHelper.setText(htmlContent, true);
+
+		mailSender.send(mimeMessage);
+	}
+
+	public void sendRegisterMail(MailMessageDto mailMessageDto) throws MessagingException {
+		Map<String, Object> model = new HashMap<>();
+		model.put("username", mailMessageDto.getUsername());
+
+		String htmlContent = mailTemplateService.generateMailTemplate("register-template", model);
 
 		MimeMessage mimeMessage = mailSender.createMimeMessage();
 		MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage);
