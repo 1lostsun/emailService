@@ -15,7 +15,7 @@ public class KafkaMailListener {
 
 	private final MailSendingService mailSendingService;
 	private final ObjectMapper objectMapper;
-	private static final Logger log = LoggerFactory.getLogger(KafkaMailListener.class);
+		private static final Logger log = LoggerFactory.getLogger(KafkaMailListener.class);
 
 	public KafkaMailListener(MailSendingService mailSendingService, ObjectMapper objectMapper) {
 		this.mailSendingService = mailSendingService;
